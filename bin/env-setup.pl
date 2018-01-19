@@ -48,15 +48,16 @@ if ( -d $microdir ) {
 
 my $bashrc = path($ENV{HOME}, '.bashrc');
 if (-f $bashrc) {
-
+  my $extra_file =  $ENV{ HOME } ."/git/my-linux-configuration/my-bash-extra.sh";
 	if ( $bashrc->slurp !~/\/my-linux-configuration\/my\-bash-extra\.sh/){
-		$bashrc->spurt($bashrc->slurp , "\n. " . $ENV{ HOME } ."/git/my-linux-configuration/my-bash-extra.sh\n");
-		warn "Added . ...my-linux-configuration/my-bash-extra.sh to .bashrc";
+		$bashrc->spurt($bashrc->slurp , "\nsource $extra_file\n");
+		warn "Added source $extra_file .bashrc";
 	}
-	if ( $bashrc->slurp !~ /[^i][^o].\/my\-bashrc-extra\.sh/){
-		$bashrc->spurt($bashrc->slurp , "\nsource " . $ENV{ HOME } ."/my-bashrc-extra.sh\n");
-		warn 'Added . ~/my-bashrc-extra.sh to .bashrc';
-	}
+
+  if ( $bashrc->slurp !~ /[^i][^o].\/my\-bashrc-extra\.sh/){
+  	$bashrc->spurt($bashrc->slurp , "\nsource " . $ENV{ HOME } ."/my-bashrc-extra.sh\n");
+  	warn 'Added . ~/my-bashrc-extra.sh to .bashrc';
+  }
 } else {
 	warn ".bashrc not found";
 }
