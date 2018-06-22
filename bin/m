@@ -1,0 +1,12 @@
+#! /usr/bin/env perl
+
+use Mojo::Base -strict;
+
+my $file = shift @ARGV;
+my @cmd = grep {$_ =~/\d/ } @ARGV;
+my $line = $cmd[0];
+$line =~ s/\D//g;
+$line .=',0';
+@cmd = ('-startpos',$line);
+#say "exec 'micro',@cmd,$file";
+exec 'micro',@cmd,$file;

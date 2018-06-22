@@ -7,6 +7,18 @@ use autodie;
 
 # use lib "$FindBin::Bin/../lib";
 
+=head1 NAME
+
+env-setup.pl
+
+=head1 DESCRIPTION
+
+Set up environment
+
+
+=cut
+
+
 sub link_file {
 	my ($file, $link) = @_;
 	if (-l $link) {
@@ -31,6 +43,8 @@ sub link_file {
 my $gitdir = "$FindBin::Bin/../../";
 my $microdir = "$ENV{HOME}/.config/micro";
 my $repocnfdir = "$FindBin::Bin/../config";
+
+# SET UP MICRO
 if ( -d $microdir ) {
 	my $settingfile = "$microdir/settings.json";
 	link_file( "$repocnfdir/micro/settings.json", $settingfile );
@@ -46,6 +60,7 @@ if ( -d $microdir ) {
 	}
 }
 
+# SET UP .bashrc
 my $bashrc = path($ENV{HOME}, '.bashrc');
 if (-f $bashrc) {
   my $extra_file =  $ENV{ HOME } ."/git/my-linux-configuration/my-bash-extra.sh";
@@ -81,3 +96,6 @@ $content .="\n";
 my $be = path($ENV{HOME},'my-bashrc-extra.sh');
 $be->spurt($content);
 chmod (0700,$be);
+
+# COPY SERTANT FILES
+# path("$FindBin::Bin/m")->copy_to("$ENV{HOME}/bin/m");
