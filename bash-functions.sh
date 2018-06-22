@@ -15,7 +15,7 @@ _cdg_complete () {
   prev="${COMP_WORDS[COMP_CWORD-1]}"
 
   if [ $prev = "cdg" ]; then
-    COMPREPLY=( $(compgen -W "$(ls -d $HOME/git/*/ | cut -f5 -d'/')" -- $cur) );
+    COMPREPLY=( $(compgen -W "$(ls -d $HOME/git/*/| perl -pe 's/^.+?\/([^\/]+)\/*$/$1/')" -- $cur) );
     return 0
   fi
 }

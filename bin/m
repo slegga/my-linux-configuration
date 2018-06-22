@@ -1,8 +1,9 @@
-#! /usr/bin/env perl
+#!/usr/bin/env perl
 
 use Mojo::Base -strict;
 
 my $file = shift @ARGV;
+$file =~ s/\:$//;
 my @cmd = grep {$_ =~/\d/ } @ARGV;
 my $line = $cmd[0];
 $line =~ s/\D//g;
