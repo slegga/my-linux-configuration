@@ -5,9 +5,18 @@ use Mojo::Base -strict;
 my $file = shift @ARGV;
 $file =~ s/\:$//;
 my @cmd = grep {$_ =~/\d/ } @ARGV;
-my $line = $cmd[0] if @cmd;
-$line =~ s/\D//g if defined $line;
-$line .=',0';
-@cmd = ('-startpos',$line);
+if (@cmd) {
+	my $line = $cmd[0];
+	if (defined $line) {
+		$line =~ s/\D//g;
+		if($line) {
+			$line .=',0' if $line;
+			@cmd = ('-startpos',$line);
+		}
+	}
+	else {
+		@cmd=();	
+	}
+}
 #say "exec 'micro',@cmd,$file";
 exec 'micro',@cmd,$file;
