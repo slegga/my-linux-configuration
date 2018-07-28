@@ -1,5 +1,17 @@
 #!/usr/bin/env perl
 
+=head1 NAME
+
+m - short for micro
+
+=head1 DESCRIPTION
+
+Can also take linenumber as an argument
+
+
+
+=cut
+
 use Mojo::Base -strict;
 
 my $file = shift @ARGV;
@@ -15,7 +27,7 @@ if (@cmd) {
 		}
 	}
 	else {
-		@cmd=();	
+		@cmd=();
 	}
 }
 #say "exec 'micro',@cmd,$file";
