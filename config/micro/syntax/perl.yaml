@@ -1,25 +1,26 @@
 filetype: perl5
 
-detect: 
+detect:
     filename: "\\.(t|pl|pm)$"
     header: "perl$"
 
 rules:
 
-    - constant.string: "\"\\(.*\\)\"|qq?\\|.*\\||qq?\\{.*\\}|qq?\\/.*\\/"
+    - constant.string: "\"([^\"]|(\\\"))\"|\'([^\']|(\\\'))\'|qq?\\|.*\\||qq?\\{.*\\}|qq?\\/.*\\/"
+
     - constant.string:
-        start: "\""
+        start: "(^\"|[^\\\\]\")"
         end: "\""
         skip: "\\\\."
         rules:
-            - constant.specialChar: "\\\\."
+          - constant.specialChar: "\\\\."
 
     - constant.string:
-        start: "'"
-        end: "'"
-        skip: "\\\\."
-        rules:
-            - constant.specialChar: "\\\\."
+            start: "(^\'|[^\\\\]\')"
+            end: "\'"
+            skip: "\\\\."
+            rules:
+              - constant.specialChar: "\\\\."
 
     - constant.number: "\\b[0-9]+\\b"
 
@@ -55,3 +56,4 @@ rules:
         end: ";"
         rules: []
 
+#    - constant.string: "/([^/]|(\\\\/))*/[iomx]*|%r\\{([^}]|(\\\\}))*\\}[iomx]*"
