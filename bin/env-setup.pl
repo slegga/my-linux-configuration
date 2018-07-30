@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+
 use FindBin;
 use Mojo::Base -strict;
 use Mojo::File 'path';
@@ -24,18 +25,15 @@ sub link_file {
 	if (-l $link) {
 		return;
 	}
-	if ( -f $link ) {
-		copy($file, $link) or die "Cant copy($file, $link): $!";
-		return;
+	elsif ( -e $link  ) {
+		die "$link exists! Please clean up and consider removing file/directory.";
 	}
-	warn "link , $file, $link";
-	my $return = link $file, $link;
-	if (! $return ) {
-	 	my $err = $!;
-	 	if ($err =~ m/Invalid cross-device link/) {
-			 copy( $file, $link ) or die "Cant copy($file, $link): $!";
-	 	} else {
-			die "Cant make link $link $!"
+	else { # link do not exists
+		say "link($file, $link)";
+		die "$file does not exists! Try to link($file, $link)" if ! -e $file;
+		my $return = symlink($file, $link);
+		if (! $return ) {
+				die "Cant make link $link $!"
 		}
 	}
 }
@@ -49,15 +47,7 @@ if ( -d $microdir ) {
 	my $settingfile = "$microdir/settings.json";
 	link_file( "$repocnfdir/micro/settings.json", $settingfile );
 	my $syntaxdir = "$ENV{HOME}/.config/micro/syntax";
-	if ( ! -d $syntaxdir ) {
-		warn "mkdir $syntaxdir";
-		mkdir $syntaxdir;
-	}
-	my $linkperlyaml = "$syntaxdir/perl.yaml";
-	if (! -f $linkperlyaml) {
-		my $repofile = "$gitdir/my-linux-configuration/config/micro/syntax/perl.yaml";
-		link_file($repofile, $linkperlyaml);
-	}
+	link_file("$repocnfdir/micro/syntax", $syntaxdir);
 }
 
 # SET UP .bashrc
