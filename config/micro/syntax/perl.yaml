@@ -9,6 +9,7 @@ rules:
     - constant.string: "\"([^\"]|(\\\"))\"|\'([^\']|(\\\'))\'|qq?\\|.*\\||qq?\\{.*\\}|qq?\\/.*\\/"
 
     - constant.string:
+# Does not support \K or (?<!\\\\) which would fix problem with match of char before "
         start: "(^\"|[^\\\\]\")"
         end: "\""
         skip: "\\\\."

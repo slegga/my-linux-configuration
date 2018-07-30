@@ -14,21 +14,27 @@ Can also take linenumber as an argument
 
 use Mojo::Base -strict;
 
-my $file = shift @ARGV;
-$file =~ s/\:$//;
-my @cmd = grep {$_ =~/\d/ } @ARGV;
-if (@cmd) {
-	my $line = $cmd[0];
-	if (defined $line) {
-		$line =~ s/\D//g;
-		if($line) {
-			$line .=',0' if $line;
-			@cmd = ('-startpos',$line);
+if (@ARGV) {
+	my $file = shift @ARGV;
+
+	$file =~ s/\:$//;
+	my @cmd = grep {$_ =~/\d/ } @ARGV;
+	if (@cmd) {
+		my $line = $cmd[0];
+		if (defined $line) {
+			$line =~ s/\D//g;
+			if($line) {
+				$line .=',0' if $line;
+				@cmd = ('-startpos',$line);
+			}
+		}
+		else {
+			@cmd=();
 		}
 	}
-	else {
-		@cmd=();
-	}
+	exec 'micro',@cmd,$file;
+
+} else {
+	exec 'micro';
 }
 #say "exec 'micro',@cmd,$file";
-exec 'micro',@cmd,$file;
