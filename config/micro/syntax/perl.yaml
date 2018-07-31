@@ -32,8 +32,8 @@ rules:
     - symbol: "(,|\\.)"
 
     - identifier:
-        start: "[\\$@%]\\w"
-        end: "\\w+"
+        start: "[\\$@%]"
+        end: "[\\w:]+\\b"
         rules: []
 
     - comment:
