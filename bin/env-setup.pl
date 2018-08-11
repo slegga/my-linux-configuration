@@ -16,7 +16,6 @@ env-setup.pl
 
 Set up environment
 
-
 =cut
 
 
@@ -53,7 +52,10 @@ if ( -d $microdir ) {
 # SET UP .bashrc
 my $bashrc = path($ENV{HOME}, '.bashrc');
 if (-f $bashrc) {
+
   my $extra_file =  $ENV{ HOME } ."/git/my-linux-configuration/my-bash-extra.sh";
+		link_file( $extra_file, "$ENV{HOME}/my-bash-extra.sh" );
+
 	if ( $bashrc->slurp !~/\/my-linux-configuration\/my\-bash-extra\.sh/){
 		$bashrc->spurt($bashrc->slurp , "\nsource $extra_file\n");
 		warn "Added source $extra_file .bashrc";
