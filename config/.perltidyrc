@@ -1,0 +1,19 @@
+-pbp     # Start with Perl Best Practices
+#-l=78 -i=4 -ci=4 -st -se -vt=2 -cti=0 -pt=1 -bt=1 -sbt=1 -bbt=1 -nsfs -nolq -wbb="% + - * / x != == >= <= =~ !~ < > | & = **= += *= &= <<= &&= -= /= |= >>= ||= //= .= %= ^= x="
+
+-w       # Show all warnings
+-iob     # Ignore old breakpoints
+-l=120   # 120 characters per line
+-mbl=2   # No more than 2 blank lines
+-vt=0    # Less vertical tightness
+-pt=2    # High parenthesis tightness
+-bt=2    # High brace tightness
+-sbt=2   # High square bracket tightness (2=tight)
+-bbt=0   # Low block brace tightness (0 default but 2 is default for -pbp)
+-isbc    # Don't indent comments without leading space
+-i=4	 # Indent 4  (4 default -pbp)
+-ci=4	 # continue indent 4 (4 default -pbp)
+-bar	 # opening-brace-always-on-right
+# -ce      # cuddled elses
+-nsfs    # no space before semicolon
+-nolq    # no outdent long lines

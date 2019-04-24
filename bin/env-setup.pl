@@ -89,5 +89,8 @@ my $be = path($ENV{HOME},'my-bashrc-extra.sh');
 $be->spurt($content);
 chmod (0700,$be);
 
-# COPY SERTANT FILES
+# SYMLINK SERTANT FILES
+link_file("$repocnfdir/.perlcriticrc",'.perlcriticrc');
+link_file("$repocnfdir/.perltidyrc",'.perltidyrc');
+
 # path("$FindBin::Bin/m")->copy_to("$ENV{HOME}/bin/m");
