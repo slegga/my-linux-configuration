@@ -34,6 +34,11 @@ sub main {
     	$self->graceful_exit;
     }
 
+	# create standard directories
+	for my $dir(qw /bin lib script t/) {
+		$curdir->child($dir)->make_path;
+	}
+
 	# Copy git stuff if not exists
 	my $resdir = path("$FindBin::Bin");
 	my @t = @$resdir;
@@ -51,6 +56,23 @@ sub main {
 			say "$new_file copied";
 		}
 	}
+
+	# Copy rest of standard files
+	$resdir = path(@t);
+	my $tree = $resdir->child('files');
+
+	for my $file($tree->list_tree->each) {
+		next if "$file" =~ m|/files/git/|;
+#		say "\$file $file";
+		my $rel = $file->to_rel($tree);
+		say $rel;
+		my $new_file = $curdir->child($rel);
+		if (! -e "$new_file" || $self->force) {
+			$file->copy_to($new_file)->chmod(0755);
+			say "$new_file copied";
+		}
+	}
+
 }
 
 __PACKAGE__->new->main;
