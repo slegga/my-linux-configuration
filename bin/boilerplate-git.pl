@@ -22,7 +22,7 @@ use Mojo::Base 'SH::ScriptX';
 
 #has info => 'blabla';
 # option 'ask!',   'Show difference and ask overwrite or keep';
-# option 'force!', 'Overwrite existing files, can not be combined with ask';
+option 'force!', 'Overwrite existing files, can not be combined with ask';
 
 sub main {
     my $self = shift;
@@ -46,8 +46,8 @@ sub main {
 		my $rel = $file->to_rel($gittree);
 		say $rel;
 		my $new_file = $curdir->child('.git',$rel);
-		if (! -e "$new_file") {
-			$file->copy_to($new_file);
+		if (! -e "$new_file" || $self->force) {
+			$file->copy_to($new_file)->chmod(0755);
 			say "$new_file copied";
 		}
 	}

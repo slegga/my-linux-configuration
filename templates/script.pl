@@ -15,7 +15,7 @@ use Mojo::File 'path';
 
 # GIT
 use FindBin;
-use lib '$FindBin::Bin/../../utilities-perl/lib';
+use lib "$FindBin::Bin/../../utilities-perl/lib";
 use SH::UseLib;
 use Mojo::Base 'SH::ScriptX';
 use SH::ScriptX; # call SH::ScriptX->import
