@@ -66,7 +66,7 @@ sub main {
 		next if "$file" =~ m|/files/git/|;
 #		say "\$file $file";
 		my $rel = $file->to_rel($tree);
-		say $rel;
+#		say $rel;
 		my $new_file = $curdir->child($rel);
 		if (! -e "$new_file" || $self->force) {
 			$file->copy_to($new_file)->chmod(0755);
