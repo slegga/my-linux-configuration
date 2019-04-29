@@ -4,7 +4,7 @@ files_commit=$(git diff --cached --name-only)
 for file in $files_commit; do
     if [[ -f $file && $file =~ pm$\|pl$ ]]
     then
-        if [[ "$(perltidy -b -bext='/bk' $file)" -gt 0 ]]; then
+        if [[ "$(perltidy -nst -b -bext='/bk' $file)" -gt 0 ]]; then
          echo >&2 "There was an error when running perltidy $file; please see the error file for more info"
            exit 1
        fi
