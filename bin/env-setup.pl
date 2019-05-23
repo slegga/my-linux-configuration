@@ -37,7 +37,10 @@ sub link_file {
 	}
 }
 
-my $gitdir = "$FindBin::Bin/../../";
+my @tmp =@{ path("$FindBin::Bin") };
+splice(@tmp,-2); # cd ../..
+my $gitdir = path(@tmp);
+
 my $microdir = "$ENV{HOME}/.config/micro";
 my $repocnfdir = "$FindBin::Bin/../config";
 
@@ -75,14 +78,18 @@ my $content= <<"EOF";
 
 EOF
 $content .= 'export PATH=$PATH';
-my $git = path($ENV{HOME}.'/git');
-for my $gt ($git->list({dir=>1})->each) {
-	next if(-f $gt);
-	my $bin = path($gt)->child('bin');
-	if (-d $bin) {
-		$content.=":$bin";
-	}
+if (! -d '/local/nms') {
+	my $git = path($ENV{HOME}.'/git');
+	for my $gt ($git->list({dir=>1})->each) {
+		next if(-f $gt);
+		my $bin = path($gt)->child('bin');
+		if (-d $bin) {
+			$content.=":$bin";
+		}
 
+	}
+} else {
+	$content.=":$gitdir/utilities-perl/bin";
 }
 $content .="\n";
 my $be = path($ENV{HOME},'my-bashrc-extra.sh');
