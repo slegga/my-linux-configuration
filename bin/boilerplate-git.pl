@@ -40,7 +40,7 @@ sub main {
 		$curdir->child($dir)->make_path;
 	}
 
-	# Copy git stuff if not exists
+	# Link git stuff if not exists
 	my $resdir = path("$FindBin::Bin");
 	my @t = @$resdir;
 	pop @t;
@@ -48,13 +48,16 @@ sub main {
 	my $gittree = $resdir->child('files','git');
 
 	for my $file($gittree->list_tree->each) {
-		say $file;
+#		say $file;
 		my $rel = $file->to_rel($gittree);
-		say $rel;
+#		say $rel;
 		my $new_file = $curdir->child('.git',$rel);
-		if (! -e "$new_file" || $self->force) {
-			$file->copy_to($new_file)->chmod(0755);
-			say "$new_file copied";
+		if ( $self->force && -e "$new_file") {
+			unlink "$new_file";
+		}
+		if (! -e "$new_file") {
+			link "$file", "$new_file";
+			say "$new_file linked";
 		}
 	}
 
@@ -68,9 +71,9 @@ sub main {
 		my $rel = $file->to_rel($tree);
 #		say $rel;
 		my $new_file = $curdir->child($rel);
-		if (! -e "$new_file" || $self->force) {
-			$file->copy_to($new_file)->chmod(0755);
-			say "$new_file copied";
+		if (! -e "$new_file" && $self->force) {
+            $file->copy_to($new_file)->chmod(0755);
+            say "$new_file copied";
 		}
 	}
 
