@@ -96,8 +96,8 @@ my $be = path($ENV{HOME},'my-bashrc-extra.sh');
 $be->spurt($content);
 chmod (0700,$be);
 
-# SYMLINK SERTANT FILES
-link_file("$repocnfdir/.perlcriticrc",'.perlcriticrc');
-link_file("$repocnfdir/.perltidyrc",'.perltidyrc');
+# SYMLINK CERTANT FILES
+link_file("$ENV{HOME}/.perlcriticrc",'.perlcriticrc');
+link_file("$ENV{HOME}/.perltidyrc",'.perltidyrc');
 
 # path("$FindBin::Bin/m")->copy_to("$ENV{HOME}/bin/m");
