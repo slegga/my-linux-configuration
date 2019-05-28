@@ -72,7 +72,8 @@ sub main {
 #		say $rel;
 		my $new_file = $curdir->child($rel);
 		if (! -e "$new_file" && $self->force) {
-            $file->copy_to($new_file)->chmod(0755);
+            $file->copy_to($new_file);
+            chmod(0755, "$new_file"); # Mojolicious 7 friendly.
             say "$new_file copied";
 		}
 	}
