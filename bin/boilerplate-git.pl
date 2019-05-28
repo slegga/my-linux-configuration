@@ -27,7 +27,7 @@ option 'force!', 'Overwrite existing files, can not be combined with ask';
 
 sub main {
     my $self = shift;
-
+	my $env_flag = ! -d '/local/nms';
     #check if current directory is a gitrepo
     my $curdir=path;
     if (! -d $curdir->child('.git')->to_string) {
@@ -62,22 +62,21 @@ sub main {
 	}
 
 	# Copy rest of standard files
-	$resdir = path(@t);
-	my $tree = $resdir->child('files');
+	if ($env_flag) {
+		$resdir = path(@t);
+		my $tree = $resdir->child('files');
 
-	for my $file($tree->list_tree->each) {
-		next if "$file" =~ m|/files/git/|;
-#		say "\$file $file";
-		my $rel = $file->to_rel($tree);
-#		say $rel;
-		my $new_file = $curdir->child($rel);
-		if (! -e "$new_file" && $self->force) {
-            $file->copy_to($new_file);
-            chmod(0755, "$new_file"); # Mojolicious 7 friendly.
-            say "$new_file copied";
+		for my $file($tree->list_tree->each) {
+			next if "$file" =~ m|/files/git/|;
+			my $rel = $file->to_rel($tree);
+			my $new_file = $curdir->child($rel);
+			if (! -e "$new_file" && $self->force) {
+	            $file->copy_to($new_file);
+	            chmod(0755, "$new_file"); # Mojolicious 7 friendly.
+	            say "$new_file copied";
+			}
 		}
 	}
-
 }
 
 __PACKAGE__->new->main;
