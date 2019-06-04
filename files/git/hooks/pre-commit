@@ -8,7 +8,8 @@ for file in $files_commit; do
          echo >&2 "There was an error when running perltidy $file; please see the error file for more info"
            exit 1
        fi
+       real_files_commit="$read_files_commit $file"
     fi
 done
 
-git add $files_commit
+git add $real_files_commit
