@@ -12,4 +12,6 @@ for file in $files_commit; do
     fi
 done
 
-git add $real_files_commit
+if [[ -n "$real_files_commit" ]]; then
+	git add $real_files_commit
+fi
