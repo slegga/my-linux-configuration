@@ -6,3 +6,5 @@ for my $script (glob('script/*'),glob('bin/*')) { #$FindBin::Bin . '/../
         pl_file_ok( $script );
     }
 }
+my $test = Test::Compile->new();
+$test->done_testing();
