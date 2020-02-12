@@ -26,15 +26,16 @@ if (@ARGV) {
 		if (defined $line) {
 			$line =~ s/\D//g;
 			if($line) {
-				$line .=',0' if $line;
-				@cmd = ('-startpos',$line);
+				#$line .=',0' if $line;
+				#@cmd = ('-startpos',$line);
+				$file.=":$line";
 			}
 		}
 		else {
 			@cmd=();
 		}
 	}
-	exec $execute,@cmd,$file;
+	exec $execute,$file;
 
 } else {
 	exec $execute;
