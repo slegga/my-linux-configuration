@@ -100,7 +100,7 @@ chmod (0700,$be);
 # SYMLINK CERTANT FILES
 link_file("$ENV{HOME}/.perlcriticrc",'.perlcriticrc');
 link_file("$ENV{HOME}/.perltidyrc",'.perltidyrc');
-link_file("$ENV{HOME}/googledrive/Apps/pib_stein/cac/group_vars/hypnotoad.yml", "$ENV{HOME}/etc/hypnotoad.yml");
-link_file("$ENV{HOME}/googledrive/Apps/pib_stein/cac/group_vars/mojoapp.yml", "$ENV{HOME}/etc/mojoapp.yml");
+link_file("$ENV{HOME}/googledrive/data/cac/group_vars/hypnotoad.yml", "$ENV{HOME}/etc/hypnotoad.yml");
+link_file("$ENV{HOME}/googledrive/data/cac/group_vars/mojoapp.yml", "$ENV{HOME}/etc/mojoapp.yml");
 
 # path("$FindBin::Bin/m")->copy_to("$ENV{HOME}/bin/m");
