@@ -36,3 +36,4 @@ cdg () {
         cat /tmp/git-status.txt
    fi
 }
+
