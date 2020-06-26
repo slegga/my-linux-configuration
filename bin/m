@@ -19,7 +19,7 @@ my $execute = -f '/snap/bin/micro' ? '/snap/bin/micro' :'micro';
 if (@ARGV) {
 	my $file = shift @ARGV;
 
-	$file =~ s/\:$//;
+	my $line;
 	my @cmd = grep {$_ =~/\d/ } @ARGV;
 	if (@cmd) {
 		my $line = $cmd[0];
@@ -28,15 +28,25 @@ if (@ARGV) {
 			if($line) {
 				#$line .=',0' if $line;
 				#@cmd = ('-startpos',$line);
-				$file.=":$line";
+        		my $col = $cmd[1];
+        		if (defined $col) {
+        			$col =~ s/\D//g;
+        			if($col) {
+        				#$line .=',0' if $line;
+        				#@cmd = ('-startpos',$line);
+                    	exec $execute,$file,"+$line:$col";
+                    	exit(0);
+        			}
+        		} else {
+                	exec $execute,$file,"+$line";
+            	    exit(0);
+                }
 			}
 		}
-		else {
-			@cmd=();
-		}
+
 	}
 	exec $execute,$file;
-
+    exit(0);
 } else {
 	exec $execute;
 }
