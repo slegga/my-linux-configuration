@@ -1,2 +1,8 @@
 severity = 5
 verbose = %f: [%p] %m at line %l, column %c (Severity %s).\n%d\n
+
+exclude = Subroutines::ProhibitExplicitReturnUndef
+include = Objects::ProhibitIndirectSyntax
+
+[Objects::ProhibitIndirectSyntax]
+forbid = create destroy
