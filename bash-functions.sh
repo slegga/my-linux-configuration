@@ -29,9 +29,9 @@ cdg () {
     UMERGE=$(grep Unmerge /tmp/git-status.txt)
     if [ -z $UNMERGE ]; then
         git pull
-        if [ ! -d /local/net ]; then
-	        prove -l
-	    fi
+#        if [ ! -d /local/net ]; then
+#	        prove -l
+#	    fi
     else
         cat /tmp/git-status.txt
    fi
