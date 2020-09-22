@@ -41,6 +41,9 @@ my @tmp =@{ path("$FindBin::Bin") };
 splice(@tmp,-2); # cd ../..
 my $gitdir = path(@tmp);
 
+my $cronenvfile = '/etc/environment';
+die "You do not have: LANG=nb_NO.UTF-8 in the $cronenvfile file. Fix this first." if path($cronenvfile)->slurp !~ /UTF/;
+
 my $microdir = "$ENV{HOME}/.config/micro";
 my $repocnfdir = "$FindBin::Bin/../config";
 
