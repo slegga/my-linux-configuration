@@ -1,7 +1,7 @@
 severity = 5
 verbose = %f: [%p] %m at line %l, column %c (Severity %s).\n%d\n
 
-exclude = Subroutines::ProhibitExplicitReturnUndef
+exclude = Subroutines::ProhibitExplicitReturnUndef Subroutines::ProhibitSubroutinePrototypes
 include = Objects::ProhibitIndirectSyntax
 
 [Objects::ProhibitIndirectSyntax]
