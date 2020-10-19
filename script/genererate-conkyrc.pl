@@ -46,11 +46,11 @@ sub main {
     my $self = shift;
     my @e = @{ $self->extra_options };
 
-    my $netstat = `netstat -i|egrep -v -e"^Kernel\|^lo\|^Iface"`;
+    my $netstat = `ifconfig`;
    # say $netstat;
 
     my $interface;
-    if ($netstat =~ /^(\w+)/) {
+    if ($netstat =~ /\n(w\w+)/) {
 		$interface = $1;
 	} else {
 		$interface = 'lo';
