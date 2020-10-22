@@ -32,7 +32,9 @@ genererate-conkyrc.pl - Overwrite conkyrc with config genrated from template.
 
 =head1 DESCRIPTION
 
-<<DESCRIPTION>>
+    cdg my-linux-configuration
+
+    script/genererate-conkyrc.pl > ~/.conkyrc
 
 =head1 ATTRIBUTES
 

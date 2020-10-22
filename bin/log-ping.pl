@@ -63,22 +63,33 @@ option 'init!', 'Configure this script for SYSTEMD for currentuser';
 sub main {
     my $self = shift;
     if ($self->init ) {
+        say "Do the following and end with press ctrl-d";
+        my $script= $0;
+        $script =~s|.*/||;
+        $script =~s/\..*//;
+        my $systemd = path('/etc','systemd','system',"$script.service");
+        my $user= getpwuid( $< );
+        say "$systemd";
+        my $mt = Mojo::Template->new->vars(1);
+        say "sudo su";
+
+        say "cat > $systemd";
         my $template =
 '[Service]
-ExecStart= <%= $ENV{HOME} %>/git/my-linux-configuration/bin/log-ping.pl
-Restart=always
-StandardOutput=syslog
-StandardError=syslog
-SyslogIdentifier=log-ping
-User=$user
-Group=$user
-Environment=
+ExecStart= <%= $ENV{HOME} %>/perl5/perlbrew/perls/perl-5.26.3/bin/perlbrew exec -q --with perl-5.26.3 perl <%= $ENV{HOME} %>/git/my-linux-configuration/bin/log-ping.pl
+User=<%= $user %>
+Group=<%= $user %>
+Environment="PATH=/home/stein/perl5/perlbrew/perls/perl-5.26.3/bin"
 
 [Install]
 WantedBy=multi-user.target';
-...;
+       my $out = $mt->render($template,{user => $user});
 # generate systemd config
-
+        say $out;
+        say ;
+        say "Test with: systemctl start $script.service";
+        say "Turn on autostart systemctl enable log-ping.service";
+        exit(0);
     }
     my @e = @{ $self->extra_options };
     my $user = getpwuid( $< );
