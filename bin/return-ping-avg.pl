@@ -46,10 +46,10 @@ sub main {
     my $self = shift;
     my @e = @{ $self->extra_options };
     my $user = getpwuid( $< );
-    my $path = path("/tmp/ping-log-$user.log");
+    my $path = path("/tmp/ping.log");
     if (! -f "$path") {
         my $ret = `ping -w 1 -c 1 vg.no`;
-        if ($ret =~ /\nrtt.*?(\d+\.\d+)/ ) {
+        if ($ret =~ /\nrtt.*?(\d+)/ ) {
             print $1;
             exit;
         }

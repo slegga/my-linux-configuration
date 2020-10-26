@@ -97,7 +97,7 @@ WantedBy=multi-user.target';
     `chmod 666 $file`;
     my $fh = $file->open('>>');
     while (1) {
-        my $res = `/usr/bin/ping -c1 -W1 vg.no`;
+        my $res = `/bin/ping -c1 -W1 vg.no`;
         my $time = -1;
         if ($res =~/rtt .* (\d+\.\d*)/) {
             $time = $1;

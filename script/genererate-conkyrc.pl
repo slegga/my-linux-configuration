@@ -48,11 +48,11 @@ sub main {
     my $self = shift;
     my @e = @{ $self->extra_options };
 
-    my $netstat = `netstat -i|egrep -v -e"^Kernel\|^lo\|^Iface"`;
+    my $netstat = `ifconfig`;
    # say $netstat;
 
     my $interface;
-    if ($netstat =~ /^(\w+)/) {
+    if ($netstat =~ /\n(w\w+)/) {
 		$interface = $1;
 	} else {
 		$interface = 'lo';
@@ -78,7 +78,7 @@ conky.config = {
 	--desktop
 	--out_to_x = false,
 	--out_to_console = true,
-	update_interval = 60,
+	update_interval = 30,
 	alignment = 'top_right',
 	background = true,
 	draw_borders = false,
@@ -126,7 +126,7 @@ conky.config = {
 };
 
 conky.text = [[
-${time %Y-%m-%d  %V-%u}  ${execi 1900 <%= $home %>/git/conky/scripts/weather.sh oslo | cut -c1-20} IP: ${execi 1950 hostname -I | awk '{print $1}'}  ${texeci 3 <%= $home %>/git/conky/scripts/essid.sh} ${if_match ${wireless_link_qual_perc <%= $if %>}<100}${wireless_link_qual_perc <%=$if %>}% ${endif} [${texeci 10 <%= $home %>/git/my-linux-configuration/bin/return-ping-avg.pl}]
+${time %Y-%m-%d  %V-%u}  ${execi 1200 <%= $home %>/git/conky/scripts/weather.sh oslo | cut -c1-20} IP: ${execi 600 hostname -I | awk '{print $1}'} <%if($if ne 'lo') { %> ${texeci 300 <%= $home %>/git/conky/scripts/essid.sh} ${if_match ${wireless_link_qual_perc <%= $if %>}<100}${wireless_link_qual_perc <%=$if %>}% ${endif}<% } %> [${texeci 30 <%= $home %>/git/my-linux-configuration/bin/return-ping-avg.pl}]
 
 ]];
 
