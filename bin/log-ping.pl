@@ -79,7 +79,7 @@ sub main {
 ExecStart= <%= $ENV{HOME} %>/perl5/perlbrew/perls/perl-5.26.3/bin/perlbrew exec -q --with perl-5.26.3 perl <%= $ENV{HOME} %>/git/my-linux-configuration/bin/log-ping.pl
 User=<%= $user %>
 Group=<%= $user %>
-Environment="PATH=/home/stein/perl5/perlbrew/perls/perl-5.26.3/bin"
+Environment="PATH=/home/<%= $ENV{USER} %>/perl5/perlbrew/perls/perl-5.26.3/bin"
 
 [Install]
 WantedBy=multi-user.target';
