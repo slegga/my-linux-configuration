@@ -86,7 +86,6 @@ WantedBy=multi-user.target';
        my $out = $mt->render($template,{user => $user});
 # generate systemd config
         say $out;
-        say ;
         say "Test with: systemctl start $script.service";
         say "Turn on autostart systemctl enable log-ping.service";
         exit(0);
