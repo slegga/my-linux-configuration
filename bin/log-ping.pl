@@ -93,17 +93,17 @@ WantedBy=multi-user.target';
     my $user = getpwuid( $< );
     my $file = path("/tmp/ping.log");
     $file->chmod(0666);
-    my $fh = $file->open('>>');
     while (1) {
         my $res = `/bin/ping -c1 -W1 vg.no`;
         my $time = -1;
         if ($res =~/rtt .* (\d+\.\d*)/) {
             $time = $1;
         }
+        my $fh = $file->open('>>');
         print $fh "$time\n";
+        close $fh;
         sleep 3;
     }
-    close $fh;
 }
 
 __PACKAGE__->new(options_cfg=>{extra=>1})->main();

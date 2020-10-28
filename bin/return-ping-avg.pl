@@ -53,7 +53,7 @@ sub main {
             print $1;
             exit;
         }
-        print $ret;
+#        print $ret;
         print 9999;
         exit;
     }
@@ -63,7 +63,7 @@ sub main {
     while (my $time = <$fh>) {
         $i++;
         if ($time == -1) {
-            $total += 999;
+            $total += 9999;
         }
         else {
             $total+= $time;
@@ -72,7 +72,7 @@ sub main {
     close $fh;
     print 999 if ! $i;
     printf "%.1f", $total/$i if $i;
-    $path->spurt('');
+    $path->spurt('') or die "Cant empty file $path";
 }
 
 __PACKAGE__->new(options_cfg=>{extra=>1})->main();
