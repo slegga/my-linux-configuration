@@ -76,11 +76,10 @@ sub main {
         say "cat > $systemd";
         my $template =
 '[Service]
-ExecStart= <%= $ENV{HOME} %>/perl5/perlbrew/perls/perl-5.26.3/bin/perlbrew exec -q --with perl-5.26.3 perl <%= $ENV{HOME} %>/git/my-linux-configuration/bin/log-ping.pl
+ExecStart=<%= $ENV{HOME} %>/perl5/perlbrew/perls/perl-5.26.3/bin/perlbrew exec -q --with perl-5.26.3 perl <%= $ENV{HOME} %>/git/my-linux-configuration/bin/log-ping.pl
 User=<%= $user %>
 Group=<%= $user %>
 Environment="PATH=/home/<%= $ENV{USER} %>/perl5/perlbrew/perls/perl-5.26.3/bin"
-
 [Install]
 WantedBy=multi-user.target';
        my $out = $mt->render($template,{user => $user});
@@ -93,7 +92,7 @@ WantedBy=multi-user.target';
     my @e = @{ $self->extra_options };
     my $user = getpwuid( $< );
     my $file = path("/tmp/ping.log");
-    `chmod 666 $file`;
+    $file->chmod(0666);
     my $fh = $file->open('>>');
     while (1) {
         my $res = `/bin/ping -c1 -W1 vg.no`;
