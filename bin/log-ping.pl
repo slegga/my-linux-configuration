@@ -92,6 +92,7 @@ WantedBy=multi-user.target';
     my @e = @{ $self->extra_options };
     my $user = getpwuid( $< );
     my $file = path("/tmp/ping.log");
+    $file->touch;
     $file->chmod(0666);
     while (1) {
         my $res = `/bin/ping -c1 -W1 vg.no`;
