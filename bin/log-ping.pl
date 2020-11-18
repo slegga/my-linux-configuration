@@ -94,16 +94,19 @@ WantedBy=multi-user.target';
     my $file = path("/tmp/ping.log");
     $file->touch;
     $file->chmod(0666);
+    my @results;
     while (1) {
-        my $res = `/bin/ping -c1 -W1 vg.no`;
+        my $res = `/bin/ping -c1 -W2 vg.no`;
         my $time = -1;
         if ($res =~/rtt .* (\d+\.\d*)/) {
             $time = $1;
         }
-        my $fh = $file->open('>>');
-        print $fh "$time\n";
+        push @results, $time;
+        shift @results if @results > 6;
+        my $fh = $file->open('>');
+        print $fh "$_\n" for @results;
         close $fh;
-        sleep 3;
+        sleep 5;
     }
 }
 

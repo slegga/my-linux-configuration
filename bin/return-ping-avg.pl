@@ -72,7 +72,7 @@ sub main {
     close $fh;
     print 999 if ! $i;
     printf "%.1f", $total/$i if $i;
-    $path->spurt('') or die "Cant empty file $path";
+#    $path->spurt('') or die "Cant empty file $path"; no rights handle by log-ping.pl
 }
 
 __PACKAGE__->new(options_cfg=>{extra=>1})->main();
