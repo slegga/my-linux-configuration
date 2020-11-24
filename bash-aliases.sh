@@ -7,13 +7,14 @@ fi
 alias rm="rm -v"
 alias less="less -R"
 alias reload="cd ~/ansible;ansible-playbook -i hosts update.yml -K -t mojo"
-if [ "$(command -v exa)" ]; then
+# if [ "$(command -v exa)" ]; then
 #    unalias 'll'
 #    unalias -m 'l'
 #    unalias -m 'la'
 #    unalias 'ls'
-    alias ls='exa -G  --color auto --icons -a -s type'
-    alias ll='exa -l --color always --icons -a -s type'
-else
+#    alias ls='exa -G  --color auto --icons -a -s type'
+#    alias ll='exa -l --color always --icons -a -s type'
+#else
     alias ll="ls -la"
-fi
+    alias lt="ls -ltr"
+#fi
