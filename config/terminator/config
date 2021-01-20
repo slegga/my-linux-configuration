@@ -1,0 +1,26 @@
+[global_config]
+  handle_size = 1
+  geometry_hinting = True
+  inactive_color_offset = 0.7564102564102564
+  title_use_system_font = False
+  title_font = "Times New Roman, 8"
+[keybindings]
+[profiles]
+  [[default]]
+    urgent_bell = True
+    cursor_color = "#aaaaaa"
+    font = Inconsolata Medium 11
+    scrollback_lines = 1200
+    use_system_font = False
+    copy_on_selection = True
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      profile = default
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+      size = 960, 460
+[plugins]
